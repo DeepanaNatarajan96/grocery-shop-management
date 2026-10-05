@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Admin Login — GreenBasket</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
+  <style>
+    .login-wrap {
+      min-height: calc(100vh - 200px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .login-card { max-width: 380px; width: 100%; }
+    .login-card .brand-mark { margin: 0 auto 14px; }
+  </style>
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main class="login-wrap">
+    <div class="card login-card">
+      <div style="text-align:center; margin-bottom: 18px;">
+        <div class="brand-mark" style="width:52px;height:52px;font-size:26px;">🌿</div>
+        <h2 style="margin-bottom:2px;">Admin Login</h2>
+        <p style="margin:0; font-size:0.88rem;">Sign in to manage products, orders, and reports.</p>
+      </div>
+      <form id="login-form">
+        <div class="form-field" style="margin-bottom:14px;">
+          <label for="login-username">Username</label>
+          <input type="text" id="login-username" required autocomplete="username" />
+        </div>
+        <div class="form-field">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" required autocomplete="current-password" />
+        </div>
+        <p class="field-error" id="login-error"></p>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary btn-block" id="login-btn">Log In</button>
+        </div>
+      </form>
+      <p class="field-hint text-center" style="margin-top:16px;">
+        First time here? Default login is <b>admin</b> / <b>admin123</b> — change it after logging in.
+      </p>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderHeader("");
+      renderFooter();
+
+      // Already logged in? Skip straight to the admin panel.
+      if (Auth.isLoggedIn()) {
+        window.location.href = "admin.html";
+        return;
+      }
+
+      document.getElementById("login-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const errorEl = document.getElementById("login-error");
+        const btn = document.getElementById("login-btn");
+        errorEl.textContent = "";
+        btn.disabled = true;
+        btn.textContent = "Logging in…";
+
+        try {
+          const result = await Api.post("/login", {
+            username: document.getElementById("login-username").value.trim(),
+            password: document.getElementById("login-password").value,
+          });
+          Auth.setSession(result.token, result.user);
+          window.location.href = "admin.html";
+        } catch (err) {
+          errorEl.textContent = err.message;
+          btn.disabled = false;
+          btn.textContent = "Log In";
+        }
+      });
+    });
+  </script>
+</body>
+</html>

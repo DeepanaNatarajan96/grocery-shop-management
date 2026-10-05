@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Contact Us — GreenBasket</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Contact</div>
+      <h2>Get in Touch</h2>
+      <p>Questions about an order, a product, or bulk buying? We're happy to help.</p>
+    </div>
+  </section>
+
+  <main class="container section">
+    <div class="contact-grid">
+      <div class="card">
+        <h3 class="mt-0">Visit or Reach Us</h3>
+        <div class="contact-info-item">
+          <div class="icon">📍</div>
+          <div>
+            <b>Store Address</b>
+            <p>12 Market Street, Trichy, Tamil Nadu, India – 620001</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="icon">📞</div>
+          <div>
+            <b>Phone</b>
+            <p>+91 98765 43210</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="icon">✉️</div>
+          <div>
+            <b>Email</b>
+            <p>hello@greenbasket.example</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="icon">🕒</div>
+          <div>
+            <b>Store Hours</b>
+            <p>Mon–Sun: 7:00 AM – 9:30 PM</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="mt-0">Send Us a Message</h3>
+        <form id="contact-form">
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="c-name">Your Name</label>
+              <input type="text" id="c-name" required />
+            </div>
+            <div class="form-field">
+              <label for="c-phone">Phone Number</label>
+              <input type="text" id="c-phone" required />
+            </div>
+          </div>
+          <div class="form-field" style="margin-top:16px;">
+            <label for="c-message">Message</label>
+            <textarea id="c-message" rows="5" required placeholder="How can we help?"></textarea>
+          </div>
+          <p class="field-hint" id="contact-status"></p>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderHeader("contact");
+      renderFooter();
+
+      document.getElementById("contact-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        /* No backend messaging endpoint is required by the brief, so this
+           confirms receipt locally. Wire this to a real endpoint (e.g. a
+           future /api/messages route) if persistence is needed later. */
+        document.getElementById("contact-status").textContent =
+          "Thanks! Your message has been noted — we'll get back to you soon.";
+        e.target.reset();
+        showToast("Message sent");
+      });
+    });
+  </script>
+</body>
+</html>

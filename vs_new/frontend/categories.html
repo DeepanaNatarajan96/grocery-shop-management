@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Categories — GreenBasket</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Categories</div>
+      <h2>Category</h2>
+      <p>Browse our aisles — from fresh produce to pantry staples.</p>
+    </div>
+  </section>
+
+  <main class="container section">
+    <div class="cat-grid" id="categories-grid">
+      <p>Loading categories…</p>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    async function loadCategories() {
+      renderHeader("categories");
+      renderFooter();
+      const grid = document.getElementById("categories-grid");
+      try {
+        const categories = await Api.get("/categories");
+        if (categories.length === 0) {
+          grid.innerHTML = `<div class="empty-state"><div class="emoji">📦</div><p>No categories yet.</p></div>`;
+          return;
+        }
+        const emo = (n) => { n = n.toLowerCase();
+          return n.includes("fruit") ? "🍍" : n.includes("veg") ? "🥦" : n.includes("meat") ? "🥩" :
+            n.includes("bever") || n.includes("drink") ? "🥤" : n.includes("dairy") || n.includes("milk") ? "🥛" :
+            n.includes("bak") ? "🍞" : n.includes("snack") ? "🍪" : n.includes("grain") || n.includes("staple") ? "🌾" : "🛒"; };
+        grid.innerHTML = categories.map((c) => `
+          <a href="products.html?category_id=${c.category_id}" class="cat-tile">
+            <div class="tile">${emo(c.name)}</div>
+            ${escapeHtml(c.name)}<small>${c.product_count} item${c.product_count === 1 ? "" : "s"}</small>
+          </a>`).join("");
+        } catch (err) {
+        grid.innerHTML = `<div class="empty-state"><div class="emoji">⚠️</div><p>${escapeHtml(err.message)}</p></div>`;
+      }
+    }
+    document.addEventListener("DOMContentLoaded", loadCategories);
+  </script>
+</body>
+</html>

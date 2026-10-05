@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>All Products — GreenBasket</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Products</div>
+      <h2>All Products</h2>
+      <p>Fresh stock, updated in real time from our shop database.</p>
+    </div>
+  </section>
+
+  <main class="container section">
+    <div class="category-scroller" id="filter-categories"></div>
+
+    <div class="flex-between" style="margin-bottom: 18px;">
+      <p id="results-count" style="margin:0; font-size:0.88rem;"></p>
+      <div class="form-field" style="max-width:220px;">
+        <select id="sort-select" aria-label="Sort products">
+          <option value="name">Sort: Name (A–Z)</option>
+          <option value="price-asc">Sort: Price (Low to High)</option>
+          <option value="price-desc">Sort: Price (High to Low)</option>
+          <option value="stock">Sort: Stock (High to Low)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="product-grid" id="products-grid">
+      <p>Loading products…</p>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/products.js"></script>
+</body>
+</html>

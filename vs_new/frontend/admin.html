@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Admin Panel — GreenBasket</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
+</head>
+<body class="wide">
+  <header id="site-header"></header>
+
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Admin Panel</div>
+      <h2>Shop Admin Panel</h2>
+      <p>Manage products, categories, customers, orders, and view sales reports.</p>
+    </div>
+  </section>
+
+  <main class="container section">
+    <div class="flex-between" style="margin-bottom:14px;">
+      <div></div>
+      <button type="button" class="btn btn-outline btn-sm" id="change-password-btn">🔑 Change Password</button>
+    </div>
+    <div class="stat-cards" id="dashboard-stats"></div>
+
+    <div class="tab-bar" role="tablist">
+      <button type="button" class="tab-btn active" data-tab="products">Products</button>
+      <button type="button" class="tab-btn" data-tab="categories">Categories</button>
+      <button type="button" class="tab-btn" data-tab="customers">Customers</button>
+      <button type="button" class="tab-btn" data-tab="orders">Orders</button>
+      <button type="button" class="tab-btn" data-tab="reports">Sales Report</button>
+    </div>
+
+    <!-- PRODUCTS TAB -->
+    <div class="tab-panel active" id="tab-products">
+      <div class="flex-between" style="margin-bottom:16px;">
+        <h3 class="mt-0">Products</h3>
+        <button type="button" class="btn btn-primary btn-sm" id="add-product-btn">+ Add Product</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th><th>Name</th><th>Category</th><th>Price</th><th>Qty</th><th>Status</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="products-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CATEGORIES TAB -->
+    <div class="tab-panel" id="tab-categories">
+      <div class="flex-between" style="margin-bottom:16px;">
+        <h3 class="mt-0">Categories</h3>
+        <button type="button" class="btn btn-primary btn-sm" id="add-category-btn">+ Add Category</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ID</th><th>Name</th><th>Description</th><th>Products</th><th></th></tr></thead>
+          <tbody id="categories-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CUSTOMERS TAB -->
+    <div class="tab-panel" id="tab-customers">
+      <div class="flex-between" style="margin-bottom:16px;">
+        <h3 class="mt-0">Customers</h3>
+        <div style="display:flex; gap:10px;">
+          <input type="text" id="customer-search-input" placeholder="Search name, phone, or email…"
+                 style="padding:9px 12px; border:1.5px solid var(--line); border-radius:6px; min-width:220px;" />
+          <button type="button" class="btn btn-primary btn-sm" id="add-customer-btn">+ Add Customer</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ID</th><th>Name</th><th>Phone</th><th>Email</th><th>Address</th><th></th></tr></thead>
+          <tbody id="customers-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ORDERS TAB -->
+    <div class="tab-panel" id="tab-orders">
+      <h3 class="mt-0">Order History</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Order ID</th><th>Date</th><th>Customer</th><th>Total</th><th>Status</th><th></th></tr></thead>
+          <tbody id="orders-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- REPORTS TAB -->
+    <div class="tab-panel" id="tab-reports">
+      <h3 class="mt-0">Sales Report</h3>
+      <div class="stat-cards" id="report-stats"></div>
+      <div class="cart-layout">
+        <div class="card">
+          <h4 class="mt-0">Top Selling Products</h4>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Product</th><th>Units Sold</th><th>Revenue</th></tr></thead>
+              <tbody id="top-products-body"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="mt-0">Last 7 Days</h4>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Date</th><th>Orders</th><th>Revenue</th></tr></thead>
+              <tbody id="daily-sales-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Generic modal used for all add/edit forms -->
+  <div class="modal-backdrop" id="admin-modal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 class="mt-0" id="admin-modal-title">Add Item</h3>
+        <button type="button" class="modal-close" id="admin-modal-close">&times;</button>
+      </div>
+      <div id="admin-modal-body"></div>
+    </div>
+  </div>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
